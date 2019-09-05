@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>WebGL Demo</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../webgl.css" type="text/css">
+  </head>
+
+  <body>
+    <main>
+      <canvas id="glcanvas" width="640" height="480"></canvas>
+      <script>
+      main();
+
+      function main() {
+        const canvas = document.querySelector("#glcanvas");
+        // WebGl context를 호출하여 초기화한다
+        const gl = canvas.getContext("webgl");
+
+        // WebGL를 지원하지 않을 경우 경고
+        if (!gl) {
+          alert("Unable to initialize WebGL. Your browser or machine may not support it.");
+          return;
+        }
+
+        // Canvas의 색상을 Black으로 지운다
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        // 지시한 clear Color로 Color 버퍼를 지운다
+        gl.clear(gl.COLOR_BUFFER_BIT);
+      }
+    </script>
+    </main>
+  </body>
+
+  
+</html>

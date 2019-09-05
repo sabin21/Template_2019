@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WebGL Core One</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/three_sample.css" />
+</head>
+
+<body>
+    <main class="page-wrap">
+        <canvas class="webgl-container"></canvas>
+
+        <section class="section-1">
+            <div class="back-wrap">
+                <div class="circle-big"></div>
+            </div>
+            <div id="scrollpos">0</div>
+            <div class="headline-wrap">
+                <h1>Headline<br>Sample</h1>
+                <p>
+                    On Tuesday, 1.5 million people tuned into BBC Parliament to see an alliance of rebel 
+                    lawmakers deal the UK government a humiliating blow, seizing control of the Brexit 
+                    agenda and forcing embattled Prime Minister Boris Johnson to call for a snap general election.
+                </p>
+            </div>
+        </section>
+        <section class="section-2">
+            <div class="boxs-wrap">
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+        </section>
+
+        <script src="../js/vendor/jquery-3.4.1.min.js"></script>
+        <script src="../js/vendor/TweenMax.min.js"></script>
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            void main(){
+                gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+            }  
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">    
+            uniform float iTime;
+            uniform vec2 iResolution;
+
+            void main(void){
+                vec2 uv = gl_FragCoord.xy / iResolution.xy;
+                vec2 center = uv - vec2(0.5, 0.5);
+                vec2 r = abs(center.xy);
+                float s = step(0.25,max(r.x,r.y));
+
+                gl_FragColor = vec4(.0,1.0,1.0,1.0);
+                //gl_FragColor=vec4(vec3(s), 1.0);
+            }
+        </script>
+
+        <script type="module">
+
+        import * as THREE from '../js/vendor/three/build/three.module.js';
+        var camera, scene, renderer;
+        var mesh; var canvas;
+    
+        init();
+        animate();
+            function init() {
+                
+                canvas = document.querySelector('.webgl-container');
+                renderer = new THREE.WebGLRenderer({canvas,alpha:true});
+                renderer.setClearColor( 0x000000, 0 );
+
+                camera = new THREE.PerspectiveCamera( 50, canvas.offsetWidth / canvas.offsetHeight, 1, 9000 );
+                camera.position.z = 400;
+                scene = new THREE.Scene();
+                var texture = new THREE.TextureLoader().load( 'textures/box_circle.png' );
+                var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
+                var material = new THREE.MeshBasicMaterial( { map: texture } );
+                var uniforms = {
+                    iTime: { value: 0 },
+                    iResolution:  { value: new THREE.Vector3() },
+                    //iChannel0: { value: texture }
+                };
+                /*
+                var material = new THREE.ShaderMaterial({
+                    vertexShader: document.getElementById( 'vertexShader' ).textContent,
+                    fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+                    uniforms,
+                    //wireframe: true
+                });
+                */
+                mesh = new THREE.Mesh( geometry, material );
+                scene.add( mesh );
+
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( canvas.offsetWidth, canvas.offsetHeight );
+
+                window.addEventListener( 'resize', onWindowResize, false );
+            }
+            function onWindowResize() {
+                camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize( canvas.offsetWidth, canvas.offsetHeight );
+            }
+            function animate() {
+                requestAnimationFrame( animate );
+                mesh.rotation.x += 0.005;
+                mesh.rotation.y += 0.01;
+                renderer.render( scene, camera );
+            }
+            
+            //--------------------------//
+
+            var tl = new TimelineLite({ paused: true });
+            var tl2 = new TimelineLite({ paused: true });
+
+            tl.to('.circle-big', 3, {
+                width: '2000',
+                height: '2000', 
+                backgroundColor:"#eeeeee",
+                translate:"-1000 0",
+                transformOrigin: "50% 50%",
+                onComplete: function() {
+                    console.log('animation 1 completed!');
+                }
+            });
+            tl.staggerTo('.box', 1, {
+                top: 0,
+                ease: Bounce.easeOut
+                }, 0.25, '-=0.75');
+
+            tl2.to(camera.position, 3,{
+                z: '2000'
+            });
+
+            $('.page-wrap').height(tl.duration() * 1000);
+
+            var containerHeight = $('.page-wrap').height();
+            var viewportHeight = $(window).height();
+            var $scrollPosEl = $('#scrollpos');
+
+            $(window).on('scroll', function(ev) {
+                var scrollPos = $(ev.target).scrollTop();
+
+                $scrollPosEl.html(`
+                    progress: ${Number(tl.progress()).toFixed(1)}%
+                    scrollY: ${scrollPos}px
+                    dur: ${tl.duration()}s
+                `);
+                
+                tl.progress(scrollPos/(containerHeight - viewportHeight));
+                tl2.progress(scrollPos/(containerHeight - viewportHeight));
+            });
+
+        </script>
+    </main>
+    <script>
+        
+
+    </script>
+</body>
+  
+</html>

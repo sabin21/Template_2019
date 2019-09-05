@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WebGL Core One</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/obj_sample.css" />
+</head>
+
+<body>
+    <main>
+        <canvas class="webgl-container"></canvas>
+        <section class="page-wrap">
+            <div class="block-1">
+                <h1>Headline</h1>
+            </div>
+            <div class="block-1">
+                <h1>Headline</h1>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/vendor/jquery-3.4.1.min.js"></script>
+    <script src="../js/vendor/TweenMax.min.js"></script>
+
+    <script type="module">
+			import * as THREE from '../js/vendor/three/build/three.module.js';
+			import { DDSLoader } from '../js/vendor/three/examples/jsm/loaders/DDSLoader.js';
+			import { MTLLoader } from '../js/vendor/three/examples/jsm/loaders/MTLLoader.js';
+			import { OBJLoader } from '../js/vendor/three/examples/jsm/loaders/OBJLoader.js';
+
+			var container;
+			var camera, scene, renderer, canvas, object;
+			var mouseX = 0, mouseY = 0;
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+            var frustumSize = 600;
+            var SCREEN_WIDTH = window.innerWidth;
+			var SCREEN_HEIGHT = window.innerHeight;
+            var aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+            //var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 1024;
+
+			init();
+			animate();
+
+			function init() {
+				canvas = document.querySelector('.webgl-container');
+				document.body.appendChild( canvas );
+				//camera = new THREE.OrthographicCamera( 0.5 * frustumSize * aspect / - 2, 0.5 * frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 150, 10000 );
+				camera = new THREE.PerspectiveCamera( 75, canvas.offsetWidth / canvas.offsetHeight, 1, 6000 );
+                camera.position.set(0,250,500);
+                
+				// scene
+				scene = new THREE.Scene();
+				var ambientLight = new THREE.AmbientLight( 0xcccccc, 1.5 );
+				scene.add( ambientLight );
+                ambientLight.castShadow = true;
+                
+				var pointLight = new THREE.PointLight( 0xffffff, 0.2 );
+				camera.add( pointLight );
+                
+                scene.add( camera );
+                
+				// model
+				var onProgress = function ( xhr ) {
+					if ( xhr.lengthComputable ) {
+						var percentComplete = xhr.loaded / xhr.total * 100;
+						console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+					}
+				};
+				var onError = function () { };
+				THREE.Loader.Handlers.add( /\.dds$/i, new DDSLoader() );
+				new MTLLoader()
+					.setPath( '../assets_3d/Lowpoly_city/' )
+					.load( 'Lowpoly_City_Free_Pack.mtl', function ( materials ) {
+						materials.preload();
+						new OBJLoader()
+							.setMaterials( materials )
+							.setPath( '../assets_3d/Lowpoly_city/' )
+							.load( 'Lowpoly_City_Free_Pack.obj', function ( object ) {
+								object.position.x = 0;
+                                object.position.y = 100;
+                                object.scale.set(0.2,0.2,0.2);
+								scene.add( object );
+							}, onProgress, onError );
+					} );
+
+				//
+				renderer = new THREE.WebGLRenderer({canvas, alpha:true});
+                renderer.setClearColor( 0x000000, 0 );
+                renderer.antialias = true;
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( canvas.offsetWidth, canvas.offsetHeight );
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				//
+				window.addEventListener( 'resize', onWindowResize, false );
+			}
+			function onWindowResize() {
+				camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( canvas.offsetWidth, canvas.offsetHeight );
+			}
+			function onDocumentMouseMove( event ) {
+				mouseX = ( event.clientX - windowHalfX ) / 2;
+				mouseY = ( event.clientY - windowHalfY ) / 2;
+			}
+			//
+			function animate() {
+				requestAnimationFrame( animate );
+				render();
+			}
+			function render() {
+				//camera.position.x += ( mouseX - camera.position.x ) * .05;
+				//camera.position.y += ( - mouseY - camera.position.y ) * .05;
+				camera.lookAt( scene.position );
+				renderer.render( scene, camera );
+			}
+
+            //--------------------------//
+
+            var tl = new TimelineLite({ paused: true });
+
+            tl.to(camera.position, 3,{
+                y: '800',
+                z: '300'
+            });
+
+            $('.page-wrap').height(tl.duration() * 1000);
+
+            var containerHeight = $('.page-wrap').height();
+            var viewportHeight = $(window).height();
+
+            $(window).on('scroll', function(ev) {
+                var scrollPos = $(ev.target).scrollTop();                
+                tl.progress(scrollPos/(containerHeight - viewportHeight));
+            });
+
+		</script>
+</body>
+  
+</html>

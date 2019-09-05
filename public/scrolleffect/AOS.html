@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Animate.CSS and AOS.js</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no">
+    <link href="./css/default.css" rel="stylesheet" />
+    <link href="./css/common.css" rel="stylesheet" />
+    <link href="./css/animate.css" rel="stylesheet" />
+    <link href="./js/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrap">
+
+        <section id="section-1">
+            <div class="container">
+                <span class="back-svg">
+                    <svg viewBox="0 0 1000 1000" width="90%" height="90%">
+                        <circle cx="500" cy="500" r="500" class="svg-circle1" stroke="#000" fill="transparent" stroke-width="1"/>
+                        <circle cx="500" cy="500" r="480" class="svg-circle1" stroke="#000" fill="transparent" stroke-width="1"/>
+                        <circle cx="500" cy="500" r="460" class="svg-circle1" stroke="#000" fill="transparent" stroke-width="1"/>
+                    </svg>
+                </span>                
+                <span class="back-line animated slideInUp"></span>
+                <span class="back-line animated slideInDown"></span>
+                <span class="back-line animated slideInUp"></span>
+                <span class="back-line animated slideInDown"></span>
+                <span class="back-line animated slideInUp"></span>
+                <h1 class="headline animated fadeIn">Healine<br>Sample</h1>
+                <div class="box-wrap">             
+                    <div class="square-box4 animated slideInUp"></div>
+                    <div class="square-box4 animated slideInDown"></div>
+                </div>
+                                  
+            </div>
+        </section>
+
+        <section id="section-2">
+            <div class="left-box" data-aos="scaleLeftIn"></div>
+            <div class="container">
+                <h1 class="title">AOS.js Basic</h1>                
+                <div class="card" data-aos="fade-up"><h3>data-aos="fade-up"</h3></div>
+                <div class="card" data-aos="fade-down"><h3>data-aos="fade-down"</h3></div>
+                <div class="card" data-aos="fade-right"><h3>data-aos="fade-right"</h3></div>
+                <div class="card" data-aos="fade-left"><h3>data-aos="fade-left"</h3></div>
+
+                <div class="card" data-aos="flip-left"><h3>data-aos="flip-left"</h3></div>
+                <div class="card" data-aos="flip-right"><h3>data-aos="flip-right"</h3></div>
+                <div class="card" data-aos="flip-up"><h3>data-aos="flip-up"</h3></div>
+                <div class="card" data-aos="flip-down"><h3>data-aos="flip-down"</h3></div>
+
+                <div class="card" data-aos="zoom-in"><h3>data-aos="zoom-in"</h3></div>
+                <div class="card" data-aos="zoom-in-up"><h3>data-aos="zoom-in-up"</h3></div>
+                <div class="card" data-aos="zoom-in-down"><h3>data-aos="zoom-in-down"</h3></div>
+                <div class="card" data-aos="zoom-in-left"><h3>data-aos="zoom-in-left"</h3></div>
+                <div class="card" data-aos="zoom-in-right"><h3>data-aos="zoom-in-right"</h3></div>
+
+                <div class="card" data-aos="zoom-out"><h3>data-aos="zoom-out"</h3></div>
+                <div class="card" data-aos="zoom-out-up"><h3>data-aos="zoom-out-up"</h3></div>
+                <div class="card" data-aos="zoom-out-down"><h3>data-aos="zoom-out-down"</h3></div>
+                <div class="card" data-aos="zoom-out-left"><h3>data-aos="zoom-out-left"</h3></div>
+                <div class="card" data-aos="zoom-out-right"><h3>data-aos="zoom-out-right"</h3></div>                
+            </div>
+        </section>
+
+        <section id="section-3">
+            <div class="container">
+                <h1 class="title">Setting Examples</h1>
+                <div class="card" data-aos="fade-up" data-aos-duration="2000"><h3>data-aos="fade-up"<br><span>data-aos-duration="2000"</span></h3></div>
+                <div class="card" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">
+                    <h3>data-aos="fade-down"<br><span>data-aos-easing="linear"</span><br>data-aos-duration="1500"</h3>
+                </div>
+                <div class="card" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine" id="example-anchor">
+                    <h3>data-aos="fade-right"<br><span>data-aos-offset="300"</span><br>data-aos-easing="ease-in-sine"</h3>
+                </div>
+                <div class="card" data-aos="fade-left" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="500">
+                    <h3>data-aos="fade-left"<br><span>data-aos-anchor="#example-anchor"</span><br>data-aos-offset="500"<br>data-aos-duration="500"</h3>
+                </div>
+                <div class="card" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">
+                    <h3>data-aos="fade-zoom-in"<br>data-aos-easing="ease-in-back"<br><span>data-aos-delay="300"</span><br>data-aos-offset="0"</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-anchor">
+            <div class="container">
+                <h1 class="title">Anchor Placement</h1>
+                <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom"><h3>data-aos="fade-up"<br><span>data-aos-anchor-placement=<br>"top-bottom"</span></h3></div>
+                <div class="card" data-aos="fade-up" data-aos-anchor-placement="center-bottom"><h3>data-aos="fade-up"<br><span>data-aos-anchor-placement=<br>"center-bottom"</span></h3></div>
+                <div class="card" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom"><h3>data-aos="fade-up"<br><span>data-aos-anchor-placement=<br>"bottom-bottom"</span></h3></div>
+                <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-center"><h3>data-aos="fade-up"<br><span>data-aos-anchor-placement=<br>"top-center"</span></h3></div>
+                <div class="card" data-aos="fade-up" data-aos-anchor-placement="center-center"><h3>data-aos="fade-up"<br><span>data-aos-anchor-placement=<br>"center-center"</span></h3></div>               
+            </div>
+        </section>
+
+        <section id="section-4">
+            <div class="container">
+                <div class="link-box" data-aos="colorTo" data-aos-duration="2000">
+                    <a href="https://michalsnik.github.io/aos/" target="_blank">AOS.js Website</a>
+                </div>
+                <div class="link-box" data-aos="colorTo" data-aos-duration="2000">
+                    <a href="https://github.com/michalsnik/aos" target="_blank">AOS.js Github</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./js/aos.js"></script>
+    <script>
+        AOS.init();
+
+    </script>
+</body>
+</html>
