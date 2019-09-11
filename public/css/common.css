@@ -14,7 +14,15 @@ body {
     color:#3A3E41; line-height: 1.75em; letter-spacing: 0;
 }
 .wrap { width: 100%; position: relative; }
-
+.btn-back-index {
+    display: block; position: fixed; width: 100px; height: 36px;
+    overflow: hidden; color: #fff; background-color: #ee6557;
+    top:0; right:0; text-align: center; 
+}
+.btn-back-index a { 
+    width: 100%; color:#fff; text-decoration-line: none;
+    margin-top: 0.5rem; line-height: 2.2em;
+}
 /* Sections ============*/
 
 #section-1, #section-2, #section-3, #section-4 {
