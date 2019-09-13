@@ -1,0 +1,24 @@
+
+@media screen {
+
+    body { margin: 0; background: #000; overflow: hidden; }
+    #page-wrap {
+        position: absolute; margin: auto; top:0; bottom:0; left:0; right:0;
+        width: 80%; height: 80vh; overflow: hidden;
+    }
+    #canvas { width: 80vw; height: 80vh; }
+    #back-to-lib-link {
+        display: inline-block; position: fixed; top: 0; right: 0;
+        padding: 0.25em 0.5em; background: #ee6557; color: white;
+        text-decoration: none; z-index: 20; font-size: 0.85em;
+    }
+    #back-to-lib-link:hover { background: black; }
+    .curtain { position: absolute; top: 5%; right: 5%; bottom: 5%; left: 5%; }
+    .curtain img { display: none; }
+
+    .no-curtains .curtain {
+        overflow: hidden; display: flex;
+        align-items: center; justify-content: center;
+    }
+    .no-curtains .curtain img { display: block; object-fit: cover; }
+}
