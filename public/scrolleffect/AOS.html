@@ -6,14 +6,25 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Script-Type" content="text/javascript">
     <meta http-equiv="Content-Style-Type" content="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no">
-    <link href="./css/default.css" rel="stylesheet" />
-    <link href="./css/common.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no">  
     <link href="./css/animate.css" rel="stylesheet" />
     <link href="./js/aos.css" rel="stylesheet" />
+    <link href="./css/common.css" rel="stylesheet" />
+    <style>
+        .btn-back-index {
+            display: block; position: fixed; width: 100px; height: 36px;
+            overflow: hidden; color: #fff; background-color: #ee6557;
+            top:0; right:0; text-align: center; z-index: 100;
+        }
+        .btn-back-index a { 
+            width: 100%; color:#fff; text-decoration-line: none;
+            margin-top: 0.5rem; line-height: 2.2em;
+        }
+    </style>
 </head>
 
 <body>
+    <span class="btn-back-index"><a href="../index.html">BACK</a></span>
     <div class="wrap">
 
         <section id="section-1">

@@ -60,7 +60,10 @@ window.addEventListener("DOMContentLoaded", function() {
         window.addEventListener("resize", function() {
             multiTexturesPlane.uniforms.resolution.value = [pixelRatio * planeElements[0].clientWidth, pixelRatio * planeElements[0].clientHeight];
         });
-
+        
+        document.body.classList.add("video-started");
+        multiTexturesPlane.playVideos();
+        /*
         // click to play the videos
         document.getElementById("enter-site").addEventListener("click", function() {
             // display canvas and hide the button
@@ -68,6 +71,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
             multiTexturesPlane.playVideos();
         }, false);
+        */
 
     }).onRender(function() {
         // increase or decrease our timer based on the active texture value

@@ -13,27 +13,19 @@
         
 </head>
 
-<body class="video-started">
+<body>
     <span class="btn-back-index"><a href="../index.html">BACK</a></span>
     <div id="page-wrap">
 
         <div id="canvas"></div>
-
         <div class="multi-textures-wrapper">
             <div class="flex-wrapper multi-textures" data-vs-id="multiple-textures-vs" data-fs-id="multiple-textures-fs">
-                <span>Click me !</span>
+                <span>Click me</span>
                 <!-- notice here we are using the data-sampler attribute to name our sampler uniforms -->
-                <img src="./textures/video-displacement.jpg" data-sampler="displacement" />
+                <img src="./textures/displacement.jpg" data-sampler="displacement" />
                 <video src="./textures/video-1.mp4" data-sampler="firstTexture"></video>
                 <video src="./textures/video-2.mp4" data-sampler="secondTexture"></video>
             </div>
-        </div>
-
-        <div id="enter-site-wrapper" class="flex-wrapper">
-            <span id="enter-site">
-                Click to enter site<br />
-                <small>(on mobile devices we can't start playing videos without a user action)</small>
-            </span>
         </div>
     </div>
 
