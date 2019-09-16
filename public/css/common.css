@@ -16,7 +16,7 @@ body {
 .wrap { width: 100%; position: relative; }
 .btn-back-index {
     display: block; position: fixed; width: 100px; height: 36px;
-    overflow: hidden; color: #fff; background-color: #ee6557;
+    overflow: hidden; color: #fff; background-color: #7b2ebb;
     top:0; right:0; text-align: center; z-index: 100;
 }
 .btn-back-index a { 
